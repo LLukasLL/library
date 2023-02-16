@@ -1,0 +1,9 @@
+.navbar_custom {
+    padding: 8px;
+}
+.form_custom{
+    display: flex;
+}
+.input_custom{
+    margin: 4px;
+}
