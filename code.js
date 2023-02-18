@@ -3,28 +3,6 @@ const bookshelf = document.getElementById('bookshelf');
 const readSlider = document.getElementById('readSlider');
 const btnNewbook = document.getElementById('newbook');
 
-function changeReadStatus(e) {
-  const readBtnx = document.getElementById(e.srcElement.id);
-  const bookId = e.srcElement.id.substr(3);
-  const bookDiv = document.getElementById(bookId);
-  const thisReadNode = document.getElementById(`readNode${bookId}`);
-  if (readBtnx.innerHTML === 'mark read') {
-    readBtnx.innerHTML = 'mark unread';
-    myLibrary[bookId].read = 0;
-    bookDiv.style['border-left'] = '10px solid #2563eb';
-    thisReadNode.innerHTML = 'read';
-  } else {
-    readBtnx.innerHTML = 'mark read';
-    myLibrary[bookId].read = 1;
-    bookDiv.style['border-left'] = '10px solid orange';
-    thisReadNode.innerHTML = 'unread';
-  }
-}
-function removeBook(e) {
-  const bookId = e.srcElement.id.substr(9);
-  const bookDiv = document.getElementById(bookId);
-  bookDiv.remove();
-}
 function Book(id, title, author, genre, pages, read) {
   // the constructor...
   this.id = id;
@@ -79,8 +57,22 @@ function Book(id, title, author, genre, pages, read) {
     readDiv.appendChild(removeBtn);
     newBook.appendChild(readDiv);
     bookshelf.appendChild(newBook);
-    readBtn.addEventListener('click', changeReadStatus);
-    removeBtn.addEventListener('click', removeBook);
+    readBtn.addEventListener('click', () => {
+      if (readBtn.innerHTML === 'mark read') {
+        readBtn.innerHTML = 'mark unread';
+        myLibrary[this.id].read = 0;
+        newBook.style['border-left'] = '10px solid #2563eb';
+        readNode.innerHTML = 'read';
+      } else {
+        readBtn.innerHTML = 'mark read';
+        myLibrary[this.id].read = 1;
+        newBook.style['border-left'] = '10px solid orange';
+        readNode.innerHTML = 'unread';
+      }
+    });
+    removeBtn.addEventListener('click', () => {
+      newBook.remove();
+    });
   };
 }
 function adjustSliderLabel() {
