@@ -5,20 +5,25 @@ const btnNewbook = document.getElementById('newbook');
 
 function changeReadStatus(e) {
   const readBtnx = document.getElementById(e.srcElement.id);
-  const thisDivId = e.srcElement.id.substr(3);
-  const thisDiv = document.getElementById(thisDivId);
-  const thisReadNode = document.getElementById(`readNode${thisDivId}`);
+  const bookId = e.srcElement.id.substr(3);
+  const bookDiv = document.getElementById(bookId);
+  const thisReadNode = document.getElementById(`readNode${bookId}`);
   if (readBtnx.innerHTML === 'mark read') {
     readBtnx.innerHTML = 'mark unread';
-    myLibrary[thisDivId].read = 0;
-    thisDiv.style['border-left'] = '10px solid #2563eb';
+    myLibrary[bookId].read = 0;
+    bookDiv.style['border-left'] = '10px solid #2563eb';
     thisReadNode.innerHTML = 'read';
   } else {
     readBtnx.innerHTML = 'mark read';
-    myLibrary[thisDivId].read = 1;
-    thisDiv.style['border-left'] = '10px solid orange';
+    myLibrary[bookId].read = 1;
+    bookDiv.style['border-left'] = '10px solid orange';
     thisReadNode.innerHTML = 'unread';
   }
+}
+function removeBook(e) {
+  const bookId = e.srcElement.id.substr(9);
+  const bookDiv = document.getElementById(bookId);
+  bookDiv.remove();
 }
 function Book(id, title, author, genre, pages, read) {
   // the constructor...
@@ -37,6 +42,7 @@ function Book(id, title, author, genre, pages, read) {
     const readDiv = document.createElement('div');
     const readNode = document.createElement('p');
     const readBtn = document.createElement('button');
+    const removeBtn = document.createElement('button');
     newBook.classList.add('book');
     newBook.setAttribute('id', `${this.id}`);
     titleNode.classList.add('title');
@@ -48,6 +54,8 @@ function Book(id, title, author, genre, pages, read) {
     readNode.setAttribute('id', `readNode${this.id}`);
     readBtn.classList.add('btn', 'btn-outline-success', 'input_custom', 'my-2', 'my-sm-0', 'readBtn');
     readBtn.setAttribute('id', `btn${this.id}`);
+    removeBtn.classList.add('btn', 'btn-outline-success', 'input_custom', 'my-2', 'my-sm-0', 'removebtn');
+    removeBtn.setAttribute('id', `removeBtn${this.id}`);
     titleNode.innerHTML = this.title;
     authorNode.innerHTML = `by: ${this.author}`;
     genreNode.innerHTML = this.genre;
@@ -61,15 +69,18 @@ function Book(id, title, author, genre, pages, read) {
       newBook.style['border-left'] = '10px solid #2563eb';
       readBtn.innerHTML = 'mark unread';
     }
+    removeBtn.innerHTML = 'Remove';
     newBook.appendChild(titleNode);
     newBook.appendChild(authorNode);
     newBook.appendChild(genreNode);
     newBook.appendChild(pagesNode);
     readDiv.appendChild(readNode);
     readDiv.appendChild(readBtn);
+    readDiv.appendChild(removeBtn);
     newBook.appendChild(readDiv);
     bookshelf.appendChild(newBook);
     readBtn.addEventListener('click', changeReadStatus);
+    removeBtn.addEventListener('click', removeBook);
   };
 }
 function adjustSliderLabel() {
