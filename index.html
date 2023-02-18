@@ -29,13 +29,19 @@
           </ul>
         </div>
         <form class="form-inline form_custom my-2 my-lg-0">
-            <input class="form-control input_custom mr-sm-2" type="input" placeholder="Title" aria-label="Title">
+            <input class="form-control input_custom mr-sm-2" type="input" placeholder="Title" aria-label="Title" id="inputTitle">
             <input class="form-control input_custom mr-sm-2" type="input" placeholder="Author" aria-label="Author">
             <input class="form-control input_custom mr-sm-2" type="input" placeholder="Genre" aria-label="Genre">
             <input class="form-control input_custom mr-sm-2" type="input" placeholder="Total Pages" aria-label="Total Pages">
-            <button class="btn btn-outline-success input_custom my-2 my-sm-0" type="submit" id="newbook">Submit</button>
-          </form>
+            <div class="slideContainer">
+                <label for="readSlider" id="readSliderLabel"></label>
+                <input class="form-control input_custom mr-sm-2" type="range" min="0" max="1" value="0" class="readSlider" id="readSlider" list="markers">
+            </div>
+            <button class="btn btn-outline-success input_custom my-2 my-sm-0" id="newbook">Submit</button>
+        </form>
       </nav>
+      <div id="bookshelf">
+      </div>
 
     <!--  script tags  -->
     <script src="code.js"></script>
