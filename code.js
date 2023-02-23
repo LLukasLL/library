@@ -3,15 +3,17 @@ const bookshelf = document.getElementById('bookshelf');
 const readSlider = document.getElementById('readSlider');
 const btnNewbook = document.getElementById('newbook');
 
-function Book(id, title, author, genre, pages, read) {
-  // the constructor...
-  this.id = id;
-  this.title = title;
-  this.author = author;
-  this.genre = genre;
-  this.pages = pages;
-  this.read = read;
-  this.createBookCard = function () {
+class Book {
+  constructor(id, title, author, genre, pages, read) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  createBookCard() {
     const newBook = document.createElement('div');
     const titleNode = document.createElement('p');
     const authorNode = document.createElement('p');
@@ -38,7 +40,7 @@ function Book(id, title, author, genre, pages, read) {
     authorNode.innerHTML = `by: ${this.author}`;
     genreNode.innerHTML = this.genre;
     pagesNode.innerHTML = `${this.pages} pages`;
-    if (read === 0) {
+    if (this.read === 0) {
       readNode.innerHTML = 'unread';
       newBook.style['border-left'] = '10px solid orange';
       readBtn.innerHTML = 'mark read';
@@ -73,7 +75,7 @@ function Book(id, title, author, genre, pages, read) {
     removeBtn.addEventListener('click', () => {
       newBook.remove();
     });
-  };
+  }
 }
 function adjustSliderLabel() {
   const readSliderLabel = document.getElementById('readSliderLabel');
